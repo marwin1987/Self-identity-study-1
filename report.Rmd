@@ -1,0 +1,65 @@
+---
+title: "Titel hier"
+author: "Marwin"
+date: "20 januari 2016"
+output:
+  html_document:
+    toc: true
+    theme: united
+---
+
+Dit is tekst die je kunt editen. Dus hier leg je uit wat de studie is etc.
+
+```{r echo=FALSE}
+### In this code chunk, we load required packages etc
+if (!(require('psych'))) {
+  stop("This script requires the 'psych' package.");
+}
+```
+
+
+```{r echo=FALSE}
+### Inspect dataframe
+describe(condom.clean);
+summary(condom.clean);
+```
+
+```{r echo=FALSE}
+
+for (currentVar in names(condom.clean)) {
+  if (length(na.omit(condom.clean[[currentVar]])) < 2) {
+    cat("Skipping ", currentVar, ": too many missing values.\n");
+  } else if (is.numeric(condom.clean[[currentVar]])) {
+    
+    print(powerHist(na.omit(condom.clean[[currentVar]]))$plot + ggtitle(currentVar));
+    
+    print(ggplot(condom.clean, aes_string(y=currentVar, x=1)) +
+      geom_boxplot() + ggtitle(currentVar));
+
+  } else {
+    cat("Skipping ", currentVar, ": not numeric.\n");
+  }
+}
+
+```
+
+### Heading
+## Subheading geloof ik
+# zou ook andersom kunnen zijn
+
+```{r, echo=FALSE}
+
+scatterMatrix(condom.clean,
+                    items = c("Importancescale_unimportant_important",
+                              "Importancescale_notessential_essential",
+                              "Importancescale_notsignificant_significant"))
+
+```
+
+
+```{r echo=FALSE, fig.width=15, fig.height=30}
+  for (currentPage in 1:length(selfIdentityItems$output$scatterMatrices)) {
+    print(selfIdentityItems$output$scatterMatrices[[currentPage]]);
+  }
+```
+
