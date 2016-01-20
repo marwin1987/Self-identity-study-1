@@ -60,6 +60,7 @@ scatterMatrix(condom.clean,
 ```{r echo=FALSE, fig.width=15, fig.height=30}
   for (currentPage in 1:length(selfIdentityItems$output$scatterMatrices)) {
     print(selfIdentityItems$output$scatterMatrices[[currentPage]]);
+    grid.newpage();
   }
 ```
 
